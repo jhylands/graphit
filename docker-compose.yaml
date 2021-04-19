@@ -2,5 +2,5 @@ version: "0.1"
 services:
   grapheasy:
     image: grapheasy
-    volumes:
-      - /home/jhylands/Documents/graphit/hostpipe:/hostpipe
+    ports:
+     - '80:8008'

@@ -1,7 +1,11 @@
 FROM perl:5.26
 RUN cpanm Graph::Easy
-RUN mkdir -p /home/app
-COPY script.sh /home/app/script.sh
-RUN chmod +x /home/app/script.sh
+RUN mkdir -p /home/app; \
+    cd /home/app; \
+    mkfifo graphin; \
+    mkfifo graphout;
+RUN apt update && apt install python3-pip -y; pip3 install flask
 
-ENTRYPOINT ["bash", "/home/app/script.sh"]
+COPY app.py app.py
+
+ENTRYPOINT ["python3", "app.py"]
